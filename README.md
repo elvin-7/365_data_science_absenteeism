@@ -1,5 +1,5 @@
 # Absenteeism at the workplace
-In this repository, I will be going through a walk through project based on a dataset from [365 datascience course on udemy.](https://www.udemy.com/course/the-data-science-course-complete-data-science-bootcamp/) The project focuses on absenteeism at a workplace.
+In this repository, I will be going through a walk through project based on a [dataset](https://github.com/elvin-7/365_data_science_absenteeism/blob/main/Absenteeism-data.csv) from [365 datascience course on udemy.](https://www.udemy.com/course/the-data-science-course-complete-data-science-bootcamp/) The project focuses on absenteeism at a workplace.
 The dataset contains records of employee absenteeism and various factors that may influence it such as reason for absence, date, transportation expenses, distance to work, age, workload, BMI, education level, number of children and pets, and the total absenteeism time in hours.
 
 ## Goal
@@ -8,7 +8,7 @@ The purpose of the project was to predict excessive absenteeism using logistic r
 2. Building a logistic regression model
 3. Integrating the model (Using the model on new data for predictions)
 
-## Data Preprocessing
+## [Data Preprocessing](https://github.com/elvin-7/365_data_science_absenteeism/blob/main/Absenteeism%20Preprocessing.ipynb)
 Here, we explored the dataset, removed unnecessary columns, created dummy variables and grouped different elements in some columns together.
 
 At the end of this process the following columns had been removed:
@@ -24,28 +24,24 @@ and were replaced with:
 - Month Value
 - Day of the Week
 
-The end results were saved as a new csv file so we could begin the creating our logistic regression model to help predict excessive absenteeism
+The end results were saved as a new [csv file](https://github.com/elvin-7/365_data_science_absenteeism/blob/main/Absenteeism_preprocessed.csv) so we could begin the creating our logistic regression model to help predict excessive absenteeism
 
-## Building the logistic regression model
-First thing we did here was to create our target variable. We did that by finding the median number of hours (3 in this case) that employees had been absent for then assigning either a 1 for anything above the median value to represent excessive absenteeism and 0 for everything else.
+## [Building the Logistic Regression model](https://github.com/elvin-7/365_data_science_absenteeism/blob/main/Absenteeism%20Logistic%20Regression%20Model.ipynb)
+Here, we:
+1. Create the target variable:
+   - Used the median absenteeism hours (3) as the benchmark
+   - Assigned a 1 for anything above 3 hours to represent excessive absenteeism and 0 otherwise
+2. Selected and stardardized numerical inputs. We did not standardize our categorical inputs (Reason for Absence and Education).
+3. Split the dataset into training and test sets.
+4. Trained and tested the model and obtained a training and test accuracy of 77.32% and 75% respectively
+5. Interpreted the model coefficients and removed insignificant features to help simplify the model.
+  
+We then save the final [model](https://github.com/elvin-7/365_data_science_absenteeism/blob/main/model) and the [scaler](https://github.com/elvin-7/365_data_science_absenteeism/blob/main/scaler) used for standardization as files using pickle.
 
-After doing this, we had to standardize our inputs, split the data into training and test sets, build the model, trained and tested the accuracy of the model then interpreted the results.
-
-While interpreting the results, we realize that there are some inputs that are of little significance to the model. These inputs are the Daily Work Load Average, Day of the Week and Distance to work inputs.
-
-We also realize that our Reasons and Education inputs should also not be standardized. This is because the values in these inputs are categorical. for example, 0 in Education represents one category while 1 represents another.
-If we standardize these inputs, their values will no longer make any sense.
-
-We then simplify our model by removing the inputs we no longer need and adjusting our model so that we only standardize our numerical inputs.
-
-We once again train and test our model and we get a train accuracy of 77.32% and a test accuracy of 75%.
-
-We then save the final model and the scaler used for standardization as pickle files.
-
-## Model Integration
+## [Model Integration](https://github.com/elvin-7/365_data_science_absenteeism/blob/main/Absenteeism%20Model%20Integration.ipynb)
 To apply the model to new data, we:
-1. Create a Python class to preprocess new datasets in the same way as the original dataset.
-2. Import the trained model, apply preprocessing on the new dataset and predict whether or not an employee is likely to be excessively absent.
+1. Create a [Python class](https://github.com/elvin-7/365_data_science_absenteeism/blob/main/absenteeism_module.py) to preprocess new datasets in the same way as the original dataset.
+2. Import the trained model, apply preprocessing on the [new dataset](https://github.com/elvin-7/365_data_science_absenteeism/blob/main/Absenteeism_new_data.csv) and predict whether or not an employee is likely to be excessively absent. [Absenteeism predictions](https://github.com/elvin-7/365_data_science_absenteeism/blob/main/Absenteeism_predictions.csv)
 
 ## Conclusion
 This project demonstrates how logistic regression can be used to make predictions. By analyzing key factors, we developed a model with a training and test accuracy of 77.32% and 75% respectively.
